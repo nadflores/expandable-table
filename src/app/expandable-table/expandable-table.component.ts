@@ -7,7 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export interface ETable {
   id?: string;
   date: string;
-  randomNumber: number;
+  randomNumber: string;
   expand: boolean;
 }
 
@@ -23,6 +23,7 @@ export class ExpandableTableComponent implements OnInit {
   EXPAND_INTERVAL = 10000 // 10s
   displayedColumns: string[] = ['click', 'date', 'randomNumber'];
   dataSource = data;
+  term = '';
   sub: Subscription;
 
   @ViewChild(MatTable) table: MatTable<ETable[]>;
@@ -41,7 +42,7 @@ export class ExpandableTableComponent implements OnInit {
     this.sub= source.subscribe(val => {
       const row = {
         date: new Date().toISOString(), 
-        randomNumber: this.generateRandomNumberDivisibleBy3(),
+        randomNumber: this.generateRandomNumberDivisibleBy3().toString(),
         expand: false
       }
 
