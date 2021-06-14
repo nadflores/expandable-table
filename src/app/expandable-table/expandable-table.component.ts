@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { interval, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 export interface ETable {
+  id?: string;
   date: string;
   randomNumber: number;
   expand: boolean;
@@ -24,18 +27,25 @@ export class ExpandableTableComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<ETable[]>;
 
-  constructor() { }
+  constructor( private firestore: AngularFirestore ) {}
 
   ngOnInit(): void {
+    this.firestore.collection("table")
+      .valueChanges({idField: "id"})
+      .subscribe(data => {
+        this.dataSource = data as ETable[];
+      })
+
     const source = interval(this.EXPAND_INTERVAL);
 
     this.sub= source.subscribe(val => {
-      this.dataSource.push({
+      const row = {
         date: new Date().toISOString(), 
         randomNumber: this.generateRandomNumberDivisibleBy3(),
         expand: false
-      });
-      this.table.renderRows();
+      }
+
+      this.saveRow(row);
     });
 
   }
@@ -47,16 +57,23 @@ export class ExpandableTableComponent implements OnInit {
   }
 
   expandData(element: ETable) {
-    element.expand = true;
+    this.firestore.collection("table").doc(element.id).update({expand: true});
   }
 
-  saveTable() {
-    // TODO
-    alert("#TODO");
+  saveRow(data: ETable) {
+    this.firestore
+      .collection("table")
+      .add(data)
   }
 
   clearTable() {
-    this.dataSource = [];
+    this.dataSource.forEach(val => {
+      this.firestore.collection("table").doc(val.id).delete();
+    })
+  }
+
+  deleteRow(id: string) {
+    this.firestore.collection("table").doc(id).delete();
   }
 
   ngOnDestroy() {

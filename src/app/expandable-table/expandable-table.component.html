@@ -28,5 +28,4 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <br>
-<button class="save-btn" *ngIf="dataSource.length" mat-raised-button color="accent" (click)="saveTable()">Save Table</button>
 <button *ngIf="dataSource.length" mat-raised-button color="warn" (click)="clearTable()">Clear Table</button>

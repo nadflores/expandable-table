@@ -7,6 +7,9 @@ import {MatTableModule} from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 
+import { environment } from "src/environments/environment";
+import { AngularFireModule } from "@angular/fire";
+
 
 
 @NgModule({
@@ -18,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatTableModule,
     MatInputModule,
     MatButtonModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     RouterModule.forChild([
       {
         path: "",
