@@ -4,6 +4,8 @@ import { ExpandableTableComponent } from './expandable-table.component';
 import { RouterModule } from "@angular/router";
 
 import {MatTableModule} from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -14,6 +16,8 @@ import {MatTableModule} from '@angular/material/table';
   imports: [
     CommonModule,
     MatTableModule,
+    MatInputModule,
+    MatButtonModule,
     RouterModule.forChild([
       {
         path: "",
