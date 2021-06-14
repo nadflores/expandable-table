@@ -3,8 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "table",
+    path: "",
     loadChildren: () => import("./expandable-table/expandable-table.module").then(m => m.ExpandableTableModule)
+  },
+  {
+    path: "**",
+    redirectTo: "",
+    pathMatch: "full"
   }
 ];
 

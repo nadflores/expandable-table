@@ -35,7 +35,6 @@ export class ExpandableTableComponent implements OnInit {
         randomNumber: this.generateRandomNumberDivisibleBy3(),
         expand: false
       });
-
       this.table.renderRows();
     });
 
@@ -51,8 +50,12 @@ export class ExpandableTableComponent implements OnInit {
     element.expand = true;
   }
 
-  saveData() {
+  saveTable() {
     // TODO
+  }
+
+  clearTable() {
+    this.dataSource = [];
   }
 
   ngOnDestroy() {
