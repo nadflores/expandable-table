@@ -52,6 +52,7 @@ export class ExpandableTableComponent implements OnInit {
 
   saveTable() {
     // TODO
+    alert("#TODO");
   }
 
   clearTable() {
